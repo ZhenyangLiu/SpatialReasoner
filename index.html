@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Spatial-Temporal Aware Visuomotor Diffusion Policy Learning">
+  <meta name="keywords" content="Spatial-Temporal Awareness, Policy Learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spatial-Temporal Aware Visuomotor Diffusion Policy Learning</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Spatial-Temporal Aware Visuomotor Diffusion Policy Learning</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://zhenyangliu.github.io/">Zhenyang Liu</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="">Yikai Wang</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="">Kuanning Wang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Longfei Liang</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Xiangyang Xue</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Yanwei Fu</a><sup>1,2</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Fudan University,</span>
+            <span class="author-block"><sup>2</sup>Shanghai Innovation Institute,</span>
+            <span class="author-block"><sup>3</sup>Nanyang Technological University,</span>
+            <span class="author-block"><sup>4</sup>NeuHelium Co., Ltd</span>
+          </div>
+<!--           <p class="has-text-weight-bold has-text-dark is-size-4">CVPR 2025</p>
+          <div class="column has-text-centered"> -->
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- 视频部分 -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Spatial-Temporal Aware Visuomotor Diffusion Policy Learning (4D Diffusion Policy)</h2>
+        <div class="content has-text-justified">
+          <div class="has-text-centered" style="position: relative;">
+            <video id="dp4-video" autoplay muted loop playsinline style="width: 100%; height: auto;">
+              <source src="./static/videos/demo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <!-- 静音开关按钮 -->
+            <button id="unmute-btn" 
+                    style="
+                      position: absolute;
+                      bottom: 10px;
+                      right: 10px;
+                      padding: 0.5rem 1rem;
+                      font-size: 0.9rem;
+                      cursor: pointer;
+                      background-color: rgba(0,0,0,0.5);
+                      color: white;
+                      border: none;
+                      border-radius: 4px;
+                    ">
+              开启声音
+            </button>
+          </div>
+          <!-- 视频下方的说明文字 -->
+          <div style="text-align: left; max-width: 800px; margin: 1rem auto;">
+            <ul>
+              <li><strong><em>Spatiotemporal-centric visual imitation learning</em></strong>: Unlike existing methods that overlook 3D perception and dynamic interactions, DP4 explicitly models 3D spatial structures and 4D temporal dynamics, improving generalization in dynamic environments.</li>
+              <li><strong><em>4D Diffusion Policy with structured awareness</em></strong>: We introduce a diffusion-based visual imitation learning framework that generates trajectories based on learned spatial-temporal world representations.</li>
+              <li><strong><em>Dynamic Gaussian World Model for structured supervision</em></strong>: Our model actively learns from real-world interactions, ensuring the embedding of 3D spatial and 4D temporal reasoning into policy learning.</li>
+              <li><strong><em>State-of-the-art performance across diverse tasks</em></strong>: DP4 sets unprecedented success rates across 17 simulated and real-world robotic tasks, setting a new benchmark for imitation learning in dynamic environments.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 控制视频声音按钮
+    const video = document.getElementById('dp4-video');
+    const btn = document.getElementById('unmute-btn');
+
+    btn.addEventListener('click', () => {
+      if (video.muted) {
+        video.muted = false;
+        btn.textContent = '关闭声音';
+      } else {
+        video.muted = true;
+        btn.textContent = '开启声音';
+      }
+      video.play();
+    });
+  </script>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- 使用 Flexbox 居中 -->
+      <div class="has-text-centered">
+        <img src="./static/images/teaser.png" alt="Teaser Image" style="width: 70%; height: auto;">
+      </div>
+      <h2 class="subtitle has-text-centered">
+        4D Diffusion Policy</span> Spatial-temporal awareness in the 4D Diffusion Policy (DP4). Previous methods train perception and decision-making with trajectory supervision, but trajectory cloning fails to capture the 3D spatial and 4D spatiotemporal relationships. In contrast, DP4 constructs the current 3D scene with 3D spatial supervision from a single RGB-D view and predicts future 3D scene candidates using 4D spatiotemporal supervision, optimizing trajectory generation by effectively capturing both 3D structures and 4D dependencies.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+          Visual imitation learning is effective for robots to learn versatile tasks. However, many existing methods rely on behavior cloning with supervised historical trajectories, limiting their 3D spatial and 4D spatiotemporal awareness. Consequently, these methods struggle to capture the 3D structures and 4D spatiotemporal relationships necessary for real-world deployment. In this work, we propose 4D Diffusion Policy (DP4), a novel visual imitation learning method that incorporates spatiotemporal awareness into diffusion-based policies. Unlike traditional approaches that rely on trajectory cloning, DP4 leverages a dynamic Gaussian world model to guide the learning of 3D spatial and 4D spatiotemporal perceptions from interactive environments. Our method constructs the current 3D scene from a single-view RGB-D observation and predicts the future 3D scene, optimizing trajectory generation by explicitly modeling both spatial and temporal dependencies. Extensive experiments across 17 simulation tasks with 173 variants and 3 real-world robotic tasks demonstrate that the 4D Diffusion Policy (DP4) outperforms baseline methods, improving the average simulation task success rate by 16.4\% (Adroit), 14\% (DexArt), and 6.45\% (RLBench), and the average real-world robotic task success rate by 8.6\%.          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Introduction. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">The framework of our 4D Diffusion Policy (DP4)</h2>
+        <div class="content has-text-justified">
+        </p>
+          <!-- 图片居中 -->
+          <div class="has-text-centered">
+            <img src="./static/images/pipeline.png" alt="Introduction Image" style="width: 100%; height: auto;">
+          </div>
+          <p>
+          From a single-view RGB-D observation, we construct 3D point clouds and extract global and local features to enrich both holistic and focused perceptions. These multi-level representations condition the diffusion policy model to generate trajectories based on current robot states. We introduce a Gaussian world model in DP4 to capture 3D structures and 4D spatiotemporal relationships. The current observation’s 3D Gaussian Splatting (3DGS) is derived via a generalizable Gaussian regressor from point clouds and multi-level features. By enforcing consistency between ground-truth and rendered RGB-D images from this 3DGS, we enhance 3D spatial awareness. Additionally, future 3DGS are predicted from current states using policy-generated trajectories, with rendered RGB-D consistency fostering 4D spatiotemporal awareness. This improved spatiotemporal representation significantly benefits complex tasks such as object grasping and dexterous manipulation.          </p>
+          <p>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Introduction. -->
+  </div>
+</section>
+
+  
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Results -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <!-- 并排图片 -->
+          <div class="columns">
+            <div class="column">
+              <img src="./static/images/qual_1.png" alt="Result Image 1" style="width: 100%; height: auto;">
+            </div>
+            <div class="column">
+              <img src="./static/images/qual_2.png" alt="Result Image 2" style="width: 100%; height: auto;">
+            </div>
+          </div>
+
+          <ul class="content">
+            <li> The red mark indicates a pose that significantly deviates from the expert demonstration, while the green mark denotes a pose that aligns with the expert trajectory. The 4D Diffusion Policy (DP4) integrates 3D spatial and 4D spatiotemporal awareness with diffusion policies, successfully completing the tasks.</li>
+            <li> Visualization of DP4 performance on three real-world robotic tasks. DP4 demonstrates strong performance in real-world settings and effectively handles a variety of common tasks with a single view.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--/ Results -->
+  </div>
+</section>
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Theme modified from 
+            <a href="https://github.com/nerfies/nerfies.github.io" target="_blank" rel="noopener noreferrer">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
