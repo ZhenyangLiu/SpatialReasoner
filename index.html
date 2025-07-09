@@ -152,10 +152,9 @@
           <!-- 视频下方的说明文字 -->
           <div style="text-align: left; max-width: 800px; margin: 1rem auto;">
             <ul>
-              <li><strong><em>Spatiotemporal-centric visual imitation learning</em></strong>: Unlike existing methods that overlook 3D perception and dynamic interactions, DP4 explicitly models 3D spatial structures and 4D temporal dynamics, improving generalization in dynamic environments.</li>
-              <li><strong><em>4D Diffusion Policy with structured awareness</em></strong>: We introduce a diffusion-based visual imitation learning framework that generates trajectories based on learned spatial-temporal world representations.</li>
-              <li><strong><em>Dynamic Gaussian World Model for structured supervision</em></strong>: Our model actively learns from real-world interactions, ensuring the embedding of 3D spatial and 4D temporal reasoning into policy learning.</li>
-              <li><strong><em>State-of-the-art performance across diverse tasks</em></strong>: DP4 sets unprecedented success rates across 17 simulated and real-world robotic tasks, setting a new benchmark for imitation learning in dynamic environments.</li>
+              <li><strong><em>Empowering Language Field with Spatial Reasoning for 3D Visual Grounding</em></strong>: We overcome the limitation of language field-based open-vocabulary 3D visual grounding, which struggles to localize instances using spatial relations in language queries, by introducing a visual properties-enhanced hierarchical feature field for robust spatial reasoning and accurate grounding.</li>
+              <li><strong><em>A Novel SpatialReasoner Framework</em></strong>: The proposed SpatialReasoner leverages an LLM for spatial relation decomposition, alongside a visual properties-enhanced hierarchical feature field for spatial reasoning, to ``think carefully'' and ``look carefully'', enabling accurate step-by-step localization of target instances through explicit spatial reasoning.</li>
+              <li><strong><em>Outstanding Generality and Performance</em></strong>: Extensive experiments demonstrate that our method can be seamlessly integrated into diverse 3D neural representations, outperforming baseline models in 3D visual grounding and empowering their spatial reasoning capabilities.</li>
             </ul>
           </div>
         </div>
@@ -189,8 +188,7 @@
         <img src="./static/images/teaser.png" alt="Teaser Image" style="width: 70%; height: auto;">
       </div>
       <h2 class="subtitle has-text-centered">
-        4D Diffusion Policy</span> Spatial-temporal awareness in the 4D Diffusion Policy (DP4). Previous methods train perception and decision-making with trajectory supervision, but trajectory cloning fails to capture the 3D spatial and 4D spatiotemporal relationships. In contrast, DP4 constructs the current 3D scene with 3D spatial supervision from a single RGB-D view and predicts future 3D scene candidates using 4D spatiotemporal supervision, optimizing trajectory generation by effectively capturing both 3D structures and 4D dependencies.
-      </h2>
+        We propose SpatialReasoner for neural representation: prior language field methods localize instances directly from complex user queries but fail to capture spatial relations in both the language query and the environment (left). Our SpatialReasoner instead utilizes a large language model (LLM) and a hierarchical feature field to think and look "step by step" (right). Crucially, reasoning through an LLM—such as spatial relation decomposition—along with hierarchical language and instance fields, allows it to "think carefully" and "look carefully" before localizing the target instance.      </h2>
     </div>
   </div>
 </section>
@@ -204,7 +202,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-          Visual imitation learning is effective for robots to learn versatile tasks. However, many existing methods rely on behavior cloning with supervised historical trajectories, limiting their 3D spatial and 4D spatiotemporal awareness. Consequently, these methods struggle to capture the 3D structures and 4D spatiotemporal relationships necessary for real-world deployment. In this work, we propose 4D Diffusion Policy (DP4), a novel visual imitation learning method that incorporates spatiotemporal awareness into diffusion-based policies. Unlike traditional approaches that rely on trajectory cloning, DP4 leverages a dynamic Gaussian world model to guide the learning of 3D spatial and 4D spatiotemporal perceptions from interactive environments. Our method constructs the current 3D scene from a single-view RGB-D observation and predicts the future 3D scene, optimizing trajectory generation by explicitly modeling both spatial and temporal dependencies. Extensive experiments across 17 simulation tasks with 173 variants and 3 real-world robotic tasks demonstrate that the 4D Diffusion Policy (DP4) outperforms baseline methods, improving the average simulation task success rate by 16.4\% (Adroit), 14\% (DexArt), and 6.45\% (RLBench), and the average real-world robotic task success rate by 8.6\%.          </p>
+          Open-vocabulary 3D visual grounding aims to localize target objects based on free-form language queries, which is crucial for embodied AI applications such as autonomous navigation, robotics, and augmented reality. Learning 3D language fields through neural representations enables accurate understanding of 3D scenes from limited viewpoints and facilitates the localization of target objects in complex environments. However, existing language field methods struggle to accurately localize instances using spatial relations in language queries, such as ``the book on the chair.'' This limitation mainly arises from inadequate reasoning about spatial relations in both language queries and 3D scenes. In this work, we propose \textbf{SpatialReasoner}, a novel neural representation-based framework with large language model (LLM)-driven spatial reasoning that constructs a visual properties-enhanced hierarchical feature field for open-vocabulary 3D visual grounding. To enable spatial reasoning in language queries, SpatialReasoner fine-tunes an LLM to capture spatial relations and explicitly infer instructions for the target, anchor, and spatial relation. To enable spatial reasoning in 3D scenes, SpatialReasoner incorporates visual properties (opacity and color) to construct a hierarchical feature field. This field represents language and instance features using distilled CLIP features and masks extracted via the Segment Anything Model (SAM). The field is then queried using the inferred instructions in a hierarchical manner to localize the target 3D instance based on the spatial relation in the language query. Notably, SpatialReasoner is not limited to a specific 3D neural representation; it serves as a framework adaptable to various representations, such as Neural Radiance Fields (NeRF) or 3D Gaussian Splatting (3DGS). Extensive experiments show that our framework can be seamlessly integrated into different neural representations, outperforming baseline models in 3D visual grounding while empowering their spatial reasoning capability.         </p>
         </div>
       </div>
     </div>
@@ -218,7 +216,7 @@
     <!-- Introduction. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">The framework of our 4D Diffusion Policy (DP4)</h2>
+        <h2 class="title is-3">The framework of our SpatialReasoner</h2>
         <div class="content has-text-justified">
         </p>
           <!-- 图片居中 -->
@@ -226,7 +224,7 @@
             <img src="./static/images/pipeline.png" alt="Introduction Image" style="width: 100%; height: auto;">
           </div>
           <p>
-          From a single-view RGB-D observation, we construct 3D point clouds and extract global and local features to enrich both holistic and focused perceptions. These multi-level representations condition the diffusion policy model to generate trajectories based on current robot states. We introduce a Gaussian world model in DP4 to capture 3D structures and 4D spatiotemporal relationships. The current observation’s 3D Gaussian Splatting (3DGS) is derived via a generalizable Gaussian regressor from point clouds and multi-level features. By enforcing consistency between ground-truth and rendered RGB-D images from this 3DGS, we enhance 3D spatial awareness. Additionally, future 3DGS are predicted from current states using policy-generated trajectories, with rendered RGB-D consistency fostering 4D spatiotemporal awareness. This improved spatiotemporal representation significantly benefits complex tasks such as object grasping and dexterous manipulation.          </p>
+          The overall pipeline of SpatialReasoner framework. SpatialReasoner fine-tunes an LLM to decompose language queries into targets, anchors, and spatial relations. It first employs SAM to generate 2D masks for diverse instances in the training dataset. Using a neural representation model (e.g., NeRF or 3DGS) trained on multi-view images, it obtains instance scales via depth deprojection. By integrating visual properties (opacity and color) from scene reconstruction, SpatialReasoner constructs a hierarchical feature field that combines CLIP-extracted language features and mask-extraceted instance features. Reasoned instructions then query these fields to identify target and anchor candidates. By analyzing spatial relations within the query and the 3D scene, SpatialReasoner precisely localizes the referenced 3D instance. </p>
           <p>
           </p>
         </div>
@@ -255,8 +253,8 @@
           </div>
 
           <ul class="content">
-            <li> The red mark indicates a pose that significantly deviates from the expert demonstration, while the green mark denotes a pose that aligns with the expert trajectory. The 4D Diffusion Policy (DP4) integrates 3D spatial and 4D spatiotemporal awareness with diffusion policies, successfully completing the tasks.</li>
-            <li> Visualization of DP4 performance on three real-world robotic tasks. DP4 demonstrates strong performance in real-world settings and effectively handles a variety of common tasks with a single view.</li>
+            <li> Qualitative comparisons of spatial reasoning capability. Results demonstrate that our SpatialReasoner achieves spatial reasoning and localizing the target instance based on the spatial relation.</li>
+            <li> Qualitative comparisons of 3D visual grounding capability. Results demonstrate that our SpatialReasoner achieves the superior accuracy in open-vocabulary 3D localization compared to other state-of-the-art methods.</li>
           </ul>
         </div>
       </div>
